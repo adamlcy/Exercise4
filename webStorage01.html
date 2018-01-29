@@ -1,0 +1,138 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>HTML 5 Web Storage</title>
+
+<link href="reset.css" type="text/css" rel="stylesheet" />
+
+<link href="webStorage_Style.css" type="text/css" rel="stylesheet" />
+
+<script>
+window.addEventListener("load",init);
+
+function init(){
+	if(typeof(Storage)!=="undefined"){
+	
+	display();
+	
+	var button=document.getElementById("button");
+	button.addEventListener("click",saveInfo);
+	}
+	
+	else{
+	//old bowser	
+	}
+}
+
+function saveInfo(){
+
+	var donutName=document.getElementById("donName").value;
+	var donutType=document.getElementById("donType").value;
+	var donutPrice=document.getElementById("donPrice").value;
+	var donutExtra=document.getElementById("donExtra").value;
+	var donutImage = document.getElementById("donImage").src;
+	
+	localStorage.setItem("donName",donutName);
+	localStorage.setItem("donType",donutType);
+	localStorage.setItem("donPrice",donutPrice);
+	localStorage.setItem("donExtra",donutExtra);
+	localStorage.setItem("donImage",donutImage);
+	
+	display();
+	
+}
+
+function display(){
+
+	var rightBox=document.getElementById("useroutput");
+	var donutName=localStorage.getItem("donName");
+	var donutType=localStorage.getItem("donType");
+	var donutPrice=localStorage.getItem("donPrice");
+	var donutExtra=localStorage.getItem("donExtra");
+	var donutImage=localStorage.getItem("donImage");
+	
+	if(donutExtra==undefined){
+		document.getElementById("useroutput").innerHTML="";
+	}
+	else{ document.getElementById("useroutput").innerHTML
+						=
+								"OUTPUT  <hr /><br /><br />Donut Name: "+donutName+"<br /><br />  Donut Type:"+donutType
+								+"<br /><br />  Donut Price:"+donutPrice+"<br /><br />  Donut Extras:"+donutExtra+"<br /><br />"
+								+"<img width = '100px'  height='100px' id='saveDonImage' src="+donutImage+">";
+	}
+	
+}
+
+function showImage(){
+	var url="http://www.solutionstalk.com/home/wp-content/uploads/variety-donuts.jpg";
+	var donutType = document.getElementById("donType").value;
+	var donutImage = document.getElementById("donImage");
+	
+	if(donutType==="Jelly"){
+		url="https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Jelly-Donut.jpg/1200px-Jelly-Donut.jpg";
+	}
+	else if(donutType==="Glazed"){
+		url="https://myangelscloud.com/wp-content/uploads/2016/10/glazed-donut-10-9-2016.jpg";
+	}
+	else if(donutType==="Powdered Sugar"){
+		url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT1n1srTbuvJlIlYuZGmtgye5JZgvlelmOtIBamQ-OFMnymFC2nhA";
+	}
+	else if(donutType==="Plain"){
+		url = "https://www.entenmanns.com/sites/default/files/styles/medium/public/159562_1WPlain.png?itok=xl2ErUaB";
+	}
+	donImage.src = url;
+}
+
+</script>
+
+
+
+</head>
+
+<body>
+
+<div id="main">
+	<section id="userinput">
+    Donut Information Input <br>
+	<hr />
+    <br /><br />
+    <form>
+    
+    <div>Donut Name: <br /><input type="input" id="donName" size="20"></div>
+    <br />
+    <div>Donut Type:<br />
+		<select id="donType" onchange="showImage()">
+			  <option></option>
+			  <option>Jelly</option>
+			  <option>Glazed</option>
+			  <option>Powdered Sugar</option>
+			  <option>Plain</option>
+		</select> 
+	</div>
+    <br />
+	<div>Donut Price:<br /> <input type="number" id="donPrice" size="20"></div>
+    <br />
+	<div>Extras on the donut:<br /> <textarea id="donExtra" rows="5"></textarea></div>
+    <br />
+     <div><input type="button" id="button" value="Save"></div>
+	 <br />
+	 <div>
+		<img width = "100px"  height="100px" id="donImage" src="http://www.solutionstalk.com/home/wp-content/uploads/variety-donuts.jpg">
+	 </div>
+    </form>
+    </section>
+    
+    
+    <section id="useroutput">
+	Donut Information Output
+ 	<hr />
+    <br /><br />
+    </section>
+
+</div>
+
+
+
+</body>
+</html>
